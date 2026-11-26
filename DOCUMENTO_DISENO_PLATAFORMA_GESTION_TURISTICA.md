@@ -1,6 +1,6 @@
 # Plataforma de Gestión y Desarrollo Turístico (SaaS B2B)
 ## Documento Maestro de Diseño, Arquitectura y Estado del MVP
-> **Versión del Documento:** `v1.3` (MVP Canónico Validado)  
+> **Versión del Documento:** `v1.4` (MVP Canónico Validado)  
 > **Última Actualización:** 26 de Noviembre de 2026  
 > **Hito de Lanzamiento Público:** Feria ANATO (Febrero 2027)  
 > **Estado:** Aprobado y Sincronizado en GitHub (`main`)
@@ -178,6 +178,21 @@ Los planes llevan nombres de la cultura del senderismo y la montaña en Colombia
 | **Historial de salidas pasadas** | 3 meses | 9 meses | Completo |
 | **Descarga offline de itinerario (guías)** | ✅ Solo lectura | ✅ Solo lectura | ✅ Solo lectura |
 | **Gatillo al tocar techo (Von Restorff)** | Modal de upgrade asistido en 1 clic | Modal de upgrade asistido en 1 clic | N/A |
+
+### C. Prueba Gratuita de 30 Días (Free Trial) y Regla de Retorno Estricto al Estado Base `[CONFIRMADO]`
+Para maximizar la adopción y reducir la fricción inicial entre guías y agencias receptivas, la plataforma ofrece una **prueba gratuita de 30 días (*Free Trial*)** para los planes de pago (**Plan Guía** o **Plan Tour Leader**) bajo las siguientes reglas innegociables:
+
+1. **Sin Tarjeta de Crédito Requerida:** El usuario inicia su prueba en 1 clic sin ingresar datos bancarios ni pasarelas de pago, evitando desconfianza o temor a cobros ocultos.
+2. **Acceso Completo Durante los 30 Días:** Disfruta de la totalidad de funcionalidades del plan elegido (marca propia White-Label, hasta 15 proveedores por categoría en Plan Guía o ilimitados en Tour Leader, múltiples guías, tours adicionales y categorías avanzadas).
+3. **Retorno Estricto al Estado Base si no Renueva (Regla Anti-Bypass):**
+   Al vencer los 30 días sin contratar una suscripción de pago, la organización retorna de forma inmediata y automática a los límites del **Plan Rastrillo ($0 COP)** bajo una política de **bloqueo estricto de acceso**:
+   * **Cero Pérdida de Datos (Persistencia Garantizada):** Ningún proveedor, tour, guión o dato histórico registrado durante el mes de prueba se elimina de la base de datos.
+   * **Bloqueo Total de Acceso a Proveedores que Excedan la Capacidad Base:**
+     * El Plan Rastrillo solo permite un máximo de **5 proveedores por categoría** en las **4 categorías básicas core**.
+     * Si el usuario registró más de 5 proveedores o proveedores en categorías superiores (ej. Hospedaje, Artesanía, Fotografía), **esos proveedores quedan completamente inaccesibles** (bloqueados tanto para visualización de teléfonos/tarifas como para edición o asignación a nuevos tours).
+     * Esto evita que un usuario use el Free Trial para crearse una base de 15 proveedores y luego pretenda "operar gratis en solo lectura": para volver a consultar, ver o modificar esos proveedores y sus tarifas, el usuario **debe pagar al menos un mes de suscripción** en el Plan Guía o Tour Leader.
+   * **Tours Activos Excedentes en Modo Bloqueado:** Los tours que superen la cuota de 2 tours activos del Plan Rastrillo quedan en estado pausado/bloqueado. Solo los 2 tours base elegidos por el guía podrán programar salidas.
+   * **Retiro Inmediato de Marca Propia (White-Label):** Las fichas comerciales generadas a partir de la expiración vuelven a estampar la marca de agua de la plataforma.
 
 ---
 

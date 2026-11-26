@@ -1,5 +1,5 @@
 # Reglas de Proyecto: Plataforma de Gestión y Desarrollo Turístico (SaaS B2B)
-> **Versión de Reglas:** `v1.3` | **Última Actualización:** 26 de Noviembre de 2026
+> **Versión de Reglas:** `v1.4` | **Última Actualización:** 26 de Noviembre de 2026
 
 Este archivo define las **reglas de comportamiento, invariantes de negocio y restricciones técnicas obligatorias** para cualquier agente o desarrollador que trabaje en este repositorio. Su fuente canónica de verdad es [`DOCUMENTO_DISENO_PLATAFORMA_GESTION_TURISTICA.md`](file:///c:/Users/ivanc/OneDrive/Desktop/Programación/IA/Proyecto%20Gestor%20de%20Tours%20-%20Antigravity/DOCUMENTO_DISENO_PLATAFORMA_GESTION_TURISTICA.md).
 
@@ -119,6 +119,10 @@ Para garantizar el lanzamiento puntual en ANATO 2027, aplican las siguientes res
   - **Invariante de Canal WhatsApp (`wa.me`):** Los enlaces directos se usan **únicamente para comunicar a los turistas solicitudes importantes, cambios de horario o imprevistos/contingencias graves de la salida** (cero spam y cero costos de Meta).
 - **Control de Anticipos en Pasajeros (Regla 50% / Saldo):**
   - Manejo de estados de pago (`PENDIENTE`, `ANTICIPO`, `PAGADO_TOTAL`) con cálculo reactivo de saldo pendiente para cobro en el punto de encuentro.
+- **Política de Free Trial de 30 Días y Bloqueo Estricto de Proveedores Excedentes:**
+  - El usuario puede iniciar 30 días de prueba gratuita sin tarjeta de crédito para Plan Guía o Tour Leader.
+  - Si al terminar el periodo de 30 días no contrata suscripción de pago, retorna de inmediato al Plan Rastrillo ($0 COP).
+  - **Invariante Anti-Bypass de Proveedores:** Ningún dato se borra, pero los proveedores que excedan el límite de 5 por categoría o que pertenezcan a categorías no cubiertas en Rastrillo (categorías 5 a 10) quedan **estrictamente inaccesibles** (bloqueados para lectura de teléfonos/tarifas, edición y uso en tours). Para volver a acceder a ellos, verlos o modificarlos, el usuario debe pagar al menos un mes de suscripción superior.
 
 ---
 

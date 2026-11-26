@@ -110,6 +110,11 @@ model Organization {
   
   planType        PlanType    @default(RASTRILLO)
   subscriptionEnd DateTime?
+  
+  // Gestión de Prueba Gratuita (Free Trial de 30 días sin tarjeta)
+  trialPlan       PlanType?   // Plan que se está evaluando (GUIA o TOUR_LEADER)
+  trialEndsAt     DateTime?   // Fecha y hora exacta de vencimiento del trial
+  isTrialActive   Boolean     @default(false)
 
   createdAt       DateTime    @default(now())
   updatedAt       DateTime    @updatedAt
