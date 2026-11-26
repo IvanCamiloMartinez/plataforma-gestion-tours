@@ -1,5 +1,9 @@
 # Plataforma de Gestión y Desarrollo Turístico (SaaS B2B)
 ## Documento Maestro de Diseño, Arquitectura y Estado del MVP
+> **Versión del Documento:** `v1.3` (MVP Canónico Validado)  
+> **Última Actualización:** 26 de Noviembre de 2026  
+> **Hito de Lanzamiento Público:** Feria ANATO (Febrero 2027)  
+> **Estado:** Aprobado y Sincronizado en GitHub (`main`)
 
 ---
 
@@ -345,9 +349,22 @@ Evita formularios abrumadores mediante un asistente paso a paso con autoguardado
 * **Mecanismo en 1 Clic:** Al cargar el manifiesto de pasajeros, el operador marca una casilla obligatoria donde declara bajo juramento contar con la autorización de los titulares para fines logísticos y de póliza de asistencia médica.
 * **Derecho al Olvido:** Botón de 1 clic para anonimizar o eliminar los datos de los pasajeros una vez completada la salida y el tiempo de auditoría de seguros.
 
-### B. Registro Nacional de Turismo (RNT - Ley 2068 de 2020)
-* En Colombia es legalmente obligatorio exhibir el número de RNT activo en toda publicidad turística.
-* La plataforma solicita el RNT en el perfil, ofrece enlace de verificación al RUES / MinCIT y lo estampa automáticamente en todas las fichas comerciales y manifiestos.
+### B. Registro Nacional de Turismo (RNT - Ley 2068 de 2020) y Tarjeta Profesional `[CONFIRMADO]`
+
+* **1. Enfoque Escalonado para el RNT (Cero Fricción al Registrarse, Cumplimiento Estricto al Vender):**
+  * **Explicación Intuitiva para Negocio:**
+    El guía u operador puede registrarse, explorar el sistema, cargar sus aliados y diseñar sus primeros tours **sin necesidad de ingresar su RNT de inmediato**. Esto evita que alguien abandone la plataforma solo porque en ese instante no tiene a mano el certificado del RNT.
+    Sin embargo, en Colombia la ley prohíbe y sanciona severamente la publicidad o intermediación turística sin RNT visible. Por eso, **el RNT se vuelve estrictamente obligatorio y bloqueante en el momento de comercializar**: el sistema no permite descargar el PDF comercial público, activar la página web para WhatsApp ni despachar una salida oficial en calendario si la organización no ha registrado su RNT activo.
+  * **Especificación Técnica para el Desarrollador:**
+    - `Organization.rntNumber`: Es opcional a nivel de esquema en base de datos (`String?`), permitiendo el registro ágil (*onboarding*).
+    - **Guardia de Negocio en Server Actions:** Antes de mutar un tour a `status = PUBLICADO`, generar la Ficha Comercial PDF o crear un `Departure`, el backend valida que `rntNumber` no sea nulo ni vacío. Si falta, la interfaz lanza un modal asistido: *"Ingresa tu número de RNT activo para habilitar la comercialización y estampar la cláusula legal de prevención de ESCNNA (Ley 679 de 2001)"*.
+
+* **2. Tarjeta Profesional de Guía de Turismo (Ley 1558 de 2012 / Ley 2068 de 2020) `[RECOMENDACIÓN]`:**
+  * **Explicación Intuitiva para Negocio:**
+    Si el usuario se registra con el rol de Guía de Turismo (o como guía independiente titular), la plataforma le ofrece un campo dedicado para registrar su **Número de Tarjeta Profesional** expedida por el Consejo Profesional de Guías de Turismo / MinCIT.
+    **No es un campo obligatorio para operar en la plataforma, pero sí altamente recomendado:** Cuando el guía la registra, el sistema le otorga una insignia de profesional certificado en su perfil y estampa de forma prominente en la Ficha Comercial de su tour: *"Guía Profesional Certificado — T.P. No. XXXXX"*. Esto le da un factor diferenciador de autoridad y confianza frente al turista.
+  * **Especificación Técnica para el Desarrollador:**
+    - `User.professionalCard`: Campo opcional (`String?`). Si está presente, la capa de presentación de la Ficha Comercial y la Hoja de Ruta impresa estampa automáticamente la acreditación profesional del guía asignado.
 
 ---
 

@@ -1,4 +1,5 @@
 # Reglas de Proyecto: Plataforma de Gestión y Desarrollo Turístico (SaaS B2B)
+> **Versión de Reglas:** `v1.3` | **Última Actualización:** 26 de Noviembre de 2026
 
 Este archivo define las **reglas de comportamiento, invariantes de negocio y restricciones técnicas obligatorias** para cualquier agente o desarrollador que trabaje en este repositorio. Su fuente canónica de verdad es [`DOCUMENTO_DISENO_PLATAFORMA_GESTION_TURISTICA.md`](file:///c:/Users/ivanc/OneDrive/Desktop/Programación/IA/Proyecto%20Gestor%20de%20Tours%20-%20Antigravity/DOCUMENTO_DISENO_PLATAFORMA_GESTION_TURISTICA.md).
 
@@ -89,8 +90,9 @@ Para garantizar el lanzamiento puntual en ANATO 2027, aplican las siguientes res
 - **Habeas Data (Ley Estatutaria 1581 de 2012):**
   - Casilla de verificación juramentada obligatoria al cargar pasajeros en el manifiesto (`habeasDataConsent: true`, `habeasDataConsentAt`).
   - Implementación obligatoria de soporte para el **Derecho al Olvido** (anonimización/purga de datos personales a solicitud del titular).
-- **Registro Nacional de Turismo (Ley 2068 de 2020):**
-  - Toda cotización, voucher, ficha comercial PDF o enlace web debe estampar de forma visible el número de RNT del operador/guía y la cláusula legal de prevención de ESCNNA (Ley 679 de 2001).
+- **Registro Nacional de Turismo (Ley 2068 de 2020) y Tarjeta Profesional de Guía:**
+  - **RNT Escalonado:** Registro inicial libre sin RNT obligatorio (evita fricción al probar el taller) ➔ Exigencia estrictamente obligatoria y bloqueante para publicar la Ficha Comercial (Web/PDF) o despachar Salidas oficiales, estampando el RNT y la cláusula legal de prevención de ESCNNA (Ley 679 de 2001).
+  - **Tarjeta Profesional de Guía (Ley 1558 de 2012 / Ley 2068 de 2020):** Campo opcional en el perfil de guía pero **altamente recomendado**. Al registrarse, se estampa la acreditación profesional en la Ficha Comercial (*"Guía Profesional Certificado - T.P. No. XXXXX"*) otorgando prestigio y confianza ante el viajero.
 - **Estándar de Asistencia Médica en Viaje (Colasistencia / Assist Card):**
   - Registro obligatorio en `Passenger`: tipo y número de documento (CC, CE, PAS, PPT, TI), fecha de nacimiento y edad calculada, contacto de emergencia obligatorio de un tercero no viajero, y alertas médicas/dietéticas críticas (alergias severas, condición cardíaca, vegetarianismo/veganismo).
   - Exportación en 1 clic de manifiesto en CSV/Excel compatible con las plataformas de emisión de pólizas.
@@ -134,3 +136,13 @@ Cuando se presente un escenario no cubierto explícitamente en [`DOCUMENTO_DISEN
 2. **Identificar la disyuntiva:** Describir con precisión qué dato, regla de negocio o decisión técnica falta.
 3. **Ofrecer alternativas fundadas:** Presentar 2 o 3 opciones alineadas con los principios del proyecto (simplicidad MVP, Ley de Tesler, legislación colombiana).
 4. **Esperar la confirmación:** Requerir la decisión explícita del usuario antes de proceder con la implementación.
+
+---
+
+## 11. Invariante de Versionamiento Documental Obligatorio
+
+- **Regla Estricta de Versionado:** Cada vez que se actualice o modifique cualquier documento del proyecto (Markdown, Word, esquemas, etc.), el agente debe registrar y actualizar de forma obligatoria en el encabezado:
+  1. El número de versión explícito (ej. `v1.0`, `v1.1`, `v1.2`).
+  2. La fecha exacta de la última actualización.
+  3. El estado del hito (ej. *MVP Canónico Validado*).
+- **Prohibido omitir:** Queda terminantemente prohibido publicar o actualizar un documento sin su correspondiente etiqueta de versión y fecha.
