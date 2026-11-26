@@ -285,27 +285,56 @@ Evita formularios abrumadores mediante un asistente paso a paso con autoguardado
 * El guía consulta desde su teléfono: itinerario, geolocalización, teléfonos de aliados, guión y manifiesto de pasajeros.
 * **Alcance del MVP:** Descarga local de documentos estáticos en PDF para operar 100% offline sin señal celular. PWA con sincronización bidireccional postergada a fases posteriores.
 
-### F. Autoguardado y Prevención de Errores Operativos `[RECOMENDACIÓN]`
-* Indicadores visuales de autoguardado en borrador.
-* Prevención transaccional de sobreventa: la base de datos bloquea cualquier intento de registrar pasajeros que excedan el cupo máximo de la salida.
-
-### G. Política de Cancelación, Clima y Reprogramación por Fuerza Mayor `[CONFIRMADO]`
+### F. Registro Centralizado del Manifiesto y Control de Anticipos (50% / Saldo) `[CONFIRMADO]`
 
 * **Explicación Intuitiva para Negocio:**
-  En el turismo colombiano, factores imprevistos como alertas climáticas del IDEAM, lluvias torrenciales en páramos, derrumbes en carretera o cierres preventivos de Parques Nacionales Naturales (PNN) obligan a suspender o mover salidas a última hora. El guía o agencia no puede perder tiempo reescribiendo a mano la lista de 15 pasajeros ni volviendo a calcular costos. Con el botón de **"Reprogramar por Fuerza Mayor / Clima"**, el operador selecciona la nueva fecha u horario: el sistema mantiene intactos a todos los pasajeros inscritos, preserva los costos históricos acordados y genera de inmediato un mensaje personalizado y empático listo para enviar por WhatsApp al grupo de viajeros con un solo toque.
+  En el turismo receptivo y de pasadía, la sobreventa es el peor error operativo. Si permitiéramos que los turistas se registraran solos mediante enlaces web abiertos, varias personas intentarían llenar el formulario al mismo tiempo para los últimos cupos de una van de 12 pasajeros, generando colisiones, bloqueos de concurrencia y frustración. Al **centralizar la carga del manifiesto exclusivamente en el guía u operador**, este mantiene el control soberano y secuencial de su aforo físico.
+  
+  Además, en Colombia el 90% de los viajeros no pagan el 100% por adelantado: **separan su cupo con un anticipo del 50% por Nequi/transferencia y pagan el saldo restante en efectivo al momento de subir al transporte**. La plataforma le permite al guía marcar con un toque quién ya dio anticipo y le muestra una alerta clara con el saldo exacto pendiente por cobrar en el punto de encuentro, evitando pérdidas de dinero.
+
+* **Especificación Técnica para el Desarrollador:**
+  * **Cero Superficie Pública para Pasajeros en v1:** El consumidor final no interactúa con ningún formulario de la plataforma; el modelo de acceso permanece estrictamente B2B y autenticado.
+  * **Eliminación de Condiciones de Carrera (*Race Conditions*):** Al no existir concurrencia masiva desatendida de múltiples usuarios escribiendo sobre el mismo recurso de `Departure`, se erradica la necesidad de implementar bloqueos distribuidos o colas de espera con temporizadores de reserva.
+  * **Validación Transaccional de Aforo (PostgreSQL ACID):** El Server Action `addPassenger` ejecuta una comprobación atómica donde `COUNT(passengers) < departure.maxCapacity`. Si el aforo está lleno, la base de datos rechaza la inserción e informa al operador en pantalla.
+  * **Control de Anticipos y Saldos:** Modelo con `paymentStatus` (`PENDIENTE`, `ANTICIPO`, `PAGADO_TOTAL`), `paidAmount: Decimal(12,2)` y cálculo derivado reactivo:
+    $$SaldoPendiente = PrecioVentaPax - paidAmount$$
+  * **Interfaz de Carga Rápida en Lote (*Fast Data Entry*):** Tabla compacta optimizada para teclado (`Tab` / `Enter`) donde el guía carga nombre, documento, fecha de nacimiento, contacto de emergencia y estado de pago de 12 pasajeros en menos de 3 minutos.
+
+### G. Política de Cancelación, Clima y Comunicación de Contingencias vía WhatsApp `[CONFIRMADO]`
+
+* **Explicación Intuitiva para Negocio:**
+  En el turismo colombiano, factores imprevistos como alertas climáticas del IDEAM, lluvias torrenciales en páramos, derrumbes en carretera o cierres preventivos de Parques Nacionales Naturales (PNN) obligan a suspender o mover salidas a última hora. El guía no puede perder tiempo reescribiendo a mano la lista de 15 pasajeros ni volviendo a calcular costos. Con el botón de **"Reprogramar por Fuerza Mayor / Clima"**, el operador selecciona la nueva fecha u horario: el sistema mantiene intactos a todos los pasajeros inscritos, preserva los costos históricos acordados y genera de inmediato un mensaje personalizado listo para enviar por WhatsApp.
+
+  > ⚠️ **Invariante de Canal (Uso Exclusivo de WhatsApp):**
+  > La plataforma utiliza enlaces directos `wa.me` **únicamente para comunicar a los turistas solicitudes importantes, cambios de horario o contingencias e imprevistos graves de la salida**. No se utiliza para publicidad masiva invasiva ni spam, protegiendo la reputación y confianza del operador sin incurrir en los costosos cobros mensuales de la API de Meta.
 
 * **Especificación Técnica para el Desarrollador:**
   * **Ciclo de Vida y Estados Oficiales de `Departure` (`DepartureStatus`):**
     1. `PROGRAMADA`: Salida agendada en calendario, activa para asignación de cupos y registro de pasajeros.
     2. `EN_CURSO`: Salida en fecha de ejecución; el guía asignado se encuentra en campo operando la ruta.
-    3. `COMPLETADA`: Salida finalizada con éxito; pasa a histórico cerrado para balance contable y archivo.
+    3. `COMPLETADA`: Salida finalizada con éxito; habilita el Cierre de Caja y pasa a histórico contable cerrado.
     4. `REPROGRAMADA`: Salida aplazada o modificada en fecha/hora por fuerza mayor (clima, cierres) o acuerdo con los viajeros. Conserva la relación 1:N con los registros existentes de `Passenger` y los snapshots de `CostItem` asociados, auditando `rescheduledFrom: DateTime` y `rescheduledReason: String`.
     5. `CANCELADA`: Salida suspendida definitivamente sin ejecución. Libera compromisos y marca el estado para trazabilidad contable sin eliminar registros.
   * **Mecanismo de Reprogramación en 1 Clic (Server Action `rescheduleDeparture`):**
     - Ejecuta una transacción ACID en PostgreSQL que actualiza `departureDate` al nuevo timestamp, cambia el estado a `REPROGRAMADA`, preserva íntegramente las relaciones 1:N con `Passenger` (sin requerir reinscripción de clientes) y mantiene congelados los snapshots de tarifas históricas.
-  * **Generador Automático de Mensaje Informativo para WhatsApp:**
+  * **Generador Automático de Notificación Directa `wa.me`:**
     - Genera una URL con esquema `https://wa.me/?text=...` que inyecta la siguiente plantilla parametrizada:
       > *"Hola [Nombre Pax], te informamos que por motivos de [fuerza mayor/condición climática/cierre de parque], nuestra salida del tour [Nombre del Tour] ha sido reprogramada para el día [Nueva Fecha] a las [Nueva Hora]. El punto de encuentro se mantiene en [Punto de Encuentro]. Tu cupo y condiciones están 100% asegurados. Por favor confírmanos tu disponibilidad respondiendo a este mensaje."*
+
+### H. Cierre de Caja y Balance de Utilidad Neta de la Salida (`COMPLETADA`) `[CONFIRMADO]`
+
+* **Explicación Intuitiva para Negocio:**
+  Al finalizar la jornada (ej. sábado 6:00 PM al terminar el recorrido), el guía o administrador no debe ponerse a sumar recibos arrugados ni hacer cuentas en servilletas. Al cambiar el estado de la salida a **`COMPLETADA`**, la plataforma despliega una tarjeta ejecutiva de **Cierre de Caja** en su móvil que le revela con total transparencia:
+  * 🟢 **Total Recaudado de Pasajeros:** Sumatoria exacta de anticipos y pagos en efectivo recibidos.
+  * 🔴 **Total Liquidado a Aliados:** Costos reales de transporte, restaurantes campesinos y entradas.
+  * 💰 **Utilidad Neta Real en el Bolsillo:** La ganancia limpia que le queda a la agencia/guía ese día.
+
+* **Especificación Técnica para el Desarrollador:**
+  * Al mutar el estado a `COMPLETADA`, el backend ejecuta una función pura desacoplada:
+    $$IngresosReales = \sum_{p \in Pasajeros} p.paidAmount$$
+    $$CostosTotales = CostosFijos + \sum CostosVariables$$
+    $$UtilidadNeta = IngresosReales - CostosTotales$$
+  * Persiste el snapshot del balance en `Departure` (`actualRevenue`, `actualCosts`, `netProfit`) para que futuros cambios de tarifas en el directorio no alteren las auditorías de salidas pasadas.
 
 ---
 
@@ -398,14 +427,18 @@ El desarrollo técnico se divide en tres bloques lógicos con ruta crítica:
 5. **`Stop`:** Parada física o atractivo del catálogo (nombre, coordenadas GPS, municipio; con soporte de *Soft Delete* `deletedAt`).
 6. **`Activity`:** Tipo de experiencia (cata, senderismo, taller) con duración estándar.
 7. **`InterpretiveScript`:** Guión cultural y patrimonial (relato histórico, preguntas detonantes).
-8. **`Tour`:** Plantilla del producto turístico (concepto narrativo, aforo mín/máx, estado, TRM referencial USD; con soporte de *Soft Delete* `deletedAt`).
-9. **`ItineraryBlock`:** Instancia en el tour que vincula Stop, Activity, Script, Provider y notas privadas.
+8. **`Tour`:** Plantilla del producto turístico (concepto narrativo, foto principal de portada `coverImageUrl`, aforo mín/máx, estado, TRM referencial USD; con soporte de *Soft Delete* `deletedAt`).
+9. **`ItineraryBlock`:** Instancia en el tour que vincula Stop, Activity, Script, Provider, foto opcional de parada `imageUrl` y notas privadas.
 10. **`CostItem`:** Elemento de costo (`FIXED_DEPARTURE`, `VARIABLE_PAX`, `VARIABLE_GROUP`) con tipo exacto `Decimal(12,2)`.
-11. **`Departure`:** Salida en calendario con fecha, hora, estado oficial (`PROGRAMADA`, `EN_CURSO`, `COMPLETADA`, `REPROGRAMADA`, `CANCELADA`), guía asignado, aforo máximo y soporte de *Soft Delete* `deletedAt`.
-12. **`Passenger` (Estándar de Asistencia Médica y Manifiesto Legal):**
+11. **`Departure`:** Salida en calendario con fecha, hora, estado oficial (`PROGRAMADA`, `EN_CURSO`, `COMPLETADA`, `REPROGRAMADA`, `CANCELADA`), guía asignado, aforo máximo, balance financiero de cierre de caja (`actualRevenue`, `actualCosts`, `netProfit` en `Decimal(12,2)`) y soporte de *Soft Delete* `deletedAt`.
+12. **`Passenger` (Estándar de Asistencia Médica, Control de Anticipos y Manifiesto Legal):**
     * **Explicación Intuitiva para Negocio:**
-      Las aseguradoras turísticas en Colombia (Colasistencia, Assist Card) exigen datos estrictos para activar la cobertura médica de los viajeros antes de salir al sendero o carretera. Si ocurre una emergencia y falta el tipo de documento o el teléfono de un familiar que no esté en el tour, la aseguradora puede rechazar el siniestro. Además, el guía necesita saber de antemano si algún participante tiene alergias graves, asma o requerimientos dietéticos (vegano/vegetariano), y poder descargar la lista en 1 clic para enviarla directamente al seguro sin transcribir nada a mano.
+      Las aseguradoras turísticas en Colombia (Colasistencia, Assist Card) exigen datos estrictos para activar la cobertura médica de los viajeros antes de salir al sendero o carretera. Si ocurre una emergencia y falta el tipo de documento o el teléfono de un familiar que no esté en el tour, la aseguradora puede rechazar el siniestro. Además, el guía necesita saber de antemano si algún participante tiene alergias graves, asma o requerimientos dietéticos (vegano/vegetariano), quién ya pagó el anticipo del 50% y cuánto saldo le debe en efectivo al subir a la van, pudiendo descargar la lista en 1 clic para enviarla directamente al seguro sin transcribir nada a mano.
     * **Especificación Técnica para el Desarrollador:**
+      * **Control de Anticipos y Pagos:**
+        - `paymentStatus`: Enum (`PENDIENTE`, `ANTICIPO`, `PAGADO_TOTAL`).
+        - `paidAmount`: Monto recaudado registrado en `Decimal(12,2)` (ej. 50% de reserva).
+        - `pendingBalance`: Saldo pendiente calculado reactivamente en `Decimal(12,2)`.
       * **Campos Obligatorios de Identificación y Edad:**
         - `docType`: Tipo de documento estandarizado (`CC` Cédula de Ciudadanía, `CE` Cédula de Extranjería, `PAS` Pasaporte, `PPT` Permiso por Protección Temporal, `TI` Tarjeta de Identidad).
         - `docNumber`: Número de documento validado (sin caracteres especiales).
@@ -482,6 +515,7 @@ Esta tabla resume exactamente por qué la versión a construir es más rápida d
 | **Reutilización de Contenidos** | Catálogo abstracto global N:M con versionamiento complejo de paradas. | **Función "Duplicar Tour" / "Clonar Itinerario" en 1 Clic**. | Un guía tiene 2 o 3 tours en el Plan Rastrillo. Clonar un tour y cambiar 2 paradas resuelve la necesidad con cero fricción técnica. `[CONFIRMADO]` |
 | **Categorías de Proveedores** | 10 categorías habilitadas simultáneamente desde el día 1. | **Foco en las 4 categorías esenciales de pasadía:** Transporte, Alimentación, Actividad/Cata y Seguros. | Evita ruido visual innecesario en la UI del MVP. Las otras 6 categorías se liberan progresivamente. `[CONFIRMADO]` |
 | **Cobro y Transacciones** | Pasarela de pago online para turistas (Stripe/Wompi) con comisiones. | **Cobro directo del operador (Nequi, Daviplata, efectivo)** + botón WhatsApp. | La plataforma es B2B de productividad, no una OTA de reservas. No retiene fondos ni asume pasarelas bancarias en el MVP. `[CONFIRMADO]` |
+| **Carga del Manifiesto** | Portal web de auto-registro para turistas con gestión de bloqueos concurrentes. | **Carga rápida centralizada en lote por el operador (*Fast Entry*)** en panel privado. | Elimina el riesgo de sobreventas, previene condiciones de carrera en base de datos y erradica fricción para el viajero. `[CONFIRMADO]` |
 | **Complejidad Tributaria** | Motor de retenciones tributarias avanzadas (ReteFuente, ReteICA). | **Calculadora Fijo/Variable + Margen + campo libre de "Imprevistos/Colchón %"**. | Protege el margen real del guía sin abrumarlo con contabilidad tributaria avanzada. `[CONFIRMADO]` |
 
 ### Síntesis del Músculo Innegociable del MVP:

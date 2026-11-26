@@ -75,6 +75,12 @@ enum PassengerAttendanceStatus {
   CANCELADO
 }
 
+enum PaymentStatus {
+  PENDIENTE     // Sin pago registrado
+  ANTICIPO      // Habitualmente 50% para reserva de cupo
+  PAGADO_TOTAL  // Liquidado al 100%
+}
+
 enum DocumentType {
   CC   // Cédula de Ciudadanía
   CE   // Cédula de Extranjería
@@ -274,6 +280,7 @@ model Tour {
   minPax              Int            @default(4)
   maxPax              Int            @default(12)
   status              TourStatus     @default(BORRADOR)
+  coverImageUrl       String?        // Foto principal de portada / banner del tour
 
   // Textos para la Ficha Comercial
   commercialSummary   String?        @db.Text
@@ -326,6 +333,7 @@ model ItineraryBlock {
   // 1. CAPA COMERCIAL (Pública en PDF / Ficha)
   commercialTitle      String              // Ej. "Cata de Chicha Ancestral"
   commercialDesc       String?             @db.Text
+  imageUrl             String?             // Foto opcional representativa de la parada/actividad
 
   // 2. CAPA INTERPRETATIVA ESPECÍFICA (Storytelling del Guía)
   customStorytelling   String?             @db.Text
@@ -386,6 +394,11 @@ model Departure {
   rescheduledFrom      DateTime?       // Fecha original si fue reprogramada por clima/fuerza mayor
   rescheduledReason    String?         // Motivo del cambio (ej. "Alerta clima IDEAM / Cierre PNN")
 
+  // Cierre de Caja y Balance Financiero de la Salida (COMPLETADA)
+  actualRevenue        Decimal?        @db.Decimal(12, 2) // Total recaudado real de pasajeros
+  actualCosts          Decimal?        @db.Decimal(12, 2) // Total liquidado a aliados en ruta
+  netProfit            Decimal?        @db.Decimal(12, 2) // Ganancia neta real en el bolsillo del guía/agencia
+
   createdAt            DateTime        @default(now())
   updatedAt            DateTime        @updatedAt
   deletedAt            DateTime?       // Trazabilidad inmutable (Soft Delete)
@@ -422,8 +435,11 @@ model Passenger {
   healthInsuranceEps     String?                   // EPS o seguro médico base
 
   attendanceStatus       PassengerAttendanceStatus @default(CONFIRMADO)
-  isPaid                 Boolean                   @default(false)
-  paidAmount             Decimal?                  @db.Decimal(12, 2)
+
+  // Control de Anticipos y Pagos (Regla 50% / Saldo en Campo)
+  paymentStatus          PaymentStatus             @default(PENDIENTE)
+  paidAmount             Decimal?                  @db.Decimal(12, 2) // Anticipo registrado (ej. 50%)
+  pendingBalance         Decimal?                  @db.Decimal(12, 2) // Saldo pendiente a cobrar en efectivo
 
   // Cumplimiento Legal Habeas Data (Ley Estatutaria 1581 de 2012)
   habeasDataConsent      Boolean                   @default(true)

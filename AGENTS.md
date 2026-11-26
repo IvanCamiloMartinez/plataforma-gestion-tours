@@ -80,6 +80,7 @@ Para garantizar el lanzamiento puntual en ANATO 2027, aplican las siguientes res
 3. **Sin Pasarela de Pagos Transaccional Integrada en v1:** La plataforma no procesa tarjetas de turistas ni cobra comisiones. El cobro lo hace el operador (Nequi, Daviplata, efectivo, transferencia).
 4. **Foco en 4 Categorías Core Iniciales:** Transporte, Alimentación, Actividad/Cata y Seguros. Las 6 categorías restantes se habilitan progresivamente.
 5. **Reutilización Ligera:** Duplicación de tours y clonación de itinerarios en 1 clic en lugar de motores abstractos N:M con sobreingeniería.
+6. **Carga Centralizada del Manifiesto Exclusivo por el Operador:** El turista final nunca interactúa con formularios de la plataforma. El guía registra los pasajeros mediante carga rápida en lote (*Fast Entry*) en su panel privado, previniendo condiciones de carrera, sobreventas y bloqueos concurrentes en base de datos.
 
 ---
 
@@ -109,9 +110,13 @@ Para garantizar el lanzamiento puntual en ANATO 2027, aplican las siguientes res
 - **Trazabilidad y Borrado Lógico (*Soft Delete*):**
   - Invariante estricta: entidades clave (`Provider`, `Stop`, `Tour`, `Departure`) implementan `deletedAt: DateTime?`.
   - Queda terminantemente prohibido el borrado destructivo (`DELETE` físico en SQL) para preservar la integridad referencial de salidas pasadas, auditorías contables y comprobantes de Habeas Data.
-- **Ciclo de Vida de Salidas y Reprogramación por Clima / Fuerza Mayor:**
+- **Ciclo de Vida de Salidas, Cierre de Caja y Reprogramación por Clima / Fuerza Mayor:**
   - Estados oficiales de `Departure`: `PROGRAMADA`, `EN_CURSO`, `COMPLETADA`, `REPROGRAMADA` y `CANCELADA`.
-  - Mecanismo en 1 clic para mover fecha/hora conservando intacto el manifiesto de pasajeros y el historial de costos, con generación automática de plantilla informativa para WhatsApp.
+  - Al mutar a `COMPLETADA`, la plataforma genera automáticamente el **Cierre de Caja** (Total recaudado - Costos liquidados = Utilidad neta real en el bolsillo del operador) persistido en `Decimal(12,2)`.
+  - Mecanismo en 1 clic para mover fecha/hora conservando intacto el manifiesto de pasajeros y el historial de costos.
+  - **Invariante de Canal WhatsApp (`wa.me`):** Los enlaces directos se usan **únicamente para comunicar a los turistas solicitudes importantes, cambios de horario o imprevistos/contingencias graves de la salida** (cero spam y cero costos de Meta).
+- **Control de Anticipos en Pasajeros (Regla 50% / Saldo):**
+  - Manejo de estados de pago (`PENDIENTE`, `ANTICIPO`, `PAGADO_TOTAL`) con cálculo reactivo de saldo pendiente para cobro en el punto de encuentro.
 
 ---
 
