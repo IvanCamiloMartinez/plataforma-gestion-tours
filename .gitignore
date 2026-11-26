@@ -49,3 +49,6 @@ Thumbs.db
 # Turbo & Vercel
 .turbo
 .vercel
+
+# Local helper scripts
+*.bat
