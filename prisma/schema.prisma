@@ -116,6 +116,11 @@ model Organization {
   trialEndsAt     DateTime?   // Fecha y hora exacta de vencimiento del trial
   isTrialActive   Boolean     @default(false)
 
+  // Términos Legales, Deslinde de Responsabilidad y Estado de la Cuenta
+  acceptedTermsAt DateTime?   // Fecha de aceptación expresa de términos y deslinde de responsabilidad
+  isSuspended     Boolean     @default(false) // Veto/suspensión por uso fraudulento, ilícito o dañino
+  suspensionReason String?    // Motivo legal o administrativo del bloqueo/veto
+
   createdAt       DateTime    @default(now())
   updatedAt       DateTime    @updatedAt
 

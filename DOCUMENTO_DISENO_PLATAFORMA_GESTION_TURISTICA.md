@@ -1,6 +1,6 @@
 # Plataforma de Gestión y Desarrollo Turístico (SaaS B2B)
 ## Documento Maestro de Diseño, Arquitectura y Estado del MVP
-> **Versión del Documento:** `v1.4` (MVP Canónico Validado)  
+> **Versión del Documento:** `v1.5` (MVP Canónico Validado)  
 > **Última Actualización:** 26 de Noviembre de 2026  
 > **Hito de Lanzamiento Público:** Feria ANATO (Febrero 2027)  
 > **Estado:** Aprobado y Sincronizado en GitHub (`main`)
@@ -557,3 +557,34 @@ Esta tabla resume exactamente por qué la versión a construir es más rápida d
 4. ✅ **Calculadora Financiera** (Costo Total, Costo Unitario, Margen sobre Ventas vs. Markup y Punto de Equilibrio).
 5. ✅ **Botón de 1 Clic** para imprimir / descargar la Hoja de Ruta en PDF (para el cliente o para el guía).
 6. ✅ **Programación de Salidas y Manifiesto de Pasajeros** con consentimiento de Habeas Data (Ley 1581) y RNT obligatorio.
+
+---
+
+## 15. Marco Legal, Términos del Servicio y Deslinde Total de Responsabilidad `[CONFIRMADO]`
+
+### A. Naturaleza Exclusiva de Proveedor de Software B2B
+La plataforma tecnológica, sus creadores, desarrolladores, propietarios, socios, accionistas, directivos, empleados y distribuidores (en adelante, **"LOS PROPIETARIOS DEL SOFTWARE"**) operan **exclusivamente como proveedores de infraestructura y software como servicio (SaaS)** para la productividad, diseño y costeo de experiencias turísticas.
+
+Bajo ninguna circunstancia:
+1. **NO existe intermediación turística ni agencia de viajes:** LOS PROPIETARIOS DEL SOFTWARE no actúan como operadores turísticos, agencias receptivas, mayoristas, guías de campo ni transportadores.
+2. **NO existe captación de dinero ni custodia de fondos:** La plataforma no procesa, no retiene, no liquida ni intermedia los pagos efectuados por los turistas a los operadores. Toda transacción económica entre el cliente final y el operador o sus proveedores es un contrato privado y directo entre ellos.
+3. **NO existe responsabilidad por la prestación del servicio en ruta:** La seguridad física, integridad personal, cumplimiento de itinerarios, idoneidad mecánica de vehículos, condiciones higiénico-sanitarias de alimentos, pólizas de seguro de asistencia médica y calidad del tour son responsabilidad **única, exclusiva e indelegable del usuario titular de la cuenta (operador/guía)** y de sus proveedores contratados.
+
+### B. Deslinde Total frente a Uso Indebido, Fraudulento, Ilegal o Dañino
+LOS PROPIETARIOS DEL SOFTWARE quedan **totalmente deslindados y exonerados** de cualquier responsabilidad civil, penal, contractual, extracontractual, administrativa, policiva, fiscal o comercial derivada de:
+* El uso indebido, fraudulento, engañoso, ilícito, negligente o perjudicial que el usuario titular, sus guías asignados o cualquier miembro de su organización den a la aplicación o a la información generada (fichas comerciales, hojas de ruta, enlaces o manifiestos).
+* Publicidad engañosa, incumplimiento de promesas de valor a turistas, cobros no autorizados o cancelaciones no reembolsadas realizadas por el operador.
+* Operación sin Registro Nacional de Turismo (RNT) vigente, ejercicio ilegal de la guianza turística (Ley 1558 de 2012 / Ley 2068 de 2020) o falsificación de credenciales profesionales.
+* Violación al régimen de protección de datos personales (Ley 1581 de 2012) por parte del operador al recolectar datos de turistas sin la debida diligencia.
+* Infracciones o delitos graves, en especial cualquier acto que atente contra los derechos de los niños, niñas y adolescentes (ESCNNA - Ley 679 de 2001), turismo no autorizado en zonas protegidas o tráfico de fauna y flora.
+
+### C. Cláusula de Veto, Suspensión Inmediata y Reporte a las Autoridades
+Para salvaguardar la integridad de la comunidad turística, la seguridad de los viajeros y el prestigio de la plataforma, LOS PROPIETARIOS DEL SOFTWARE se reservan de manera expresa, irrevocable y discrecional el derecho de:
+1. **Desactivar, suspender o vetar de forma definitiva (`isSuspended = true`)** la cuenta del usuario titular y la de todos los usuarios vinculados a su organización, sin derecho a indemnización ni reembolso de mensualidades pagadas, ante cualquier indicio fundado de:
+   * Actividades ilícitas, estafas a turistas o cobro de reservas inexistentes.
+   * Suplantación de identidad o uso fraudulento de números de RNT o tarjetas profesionales ajenas.
+   * Maltrato, acoso, negligencia grave o infracciones legales debidamente reportadas por autoridades o usuarios.
+2. **Denunciar y colaborar activamente con las autoridades judiciales y administrativas:** LOS PROPIETARIOS DEL SOFTWARE se reservan el derecho de poner en conocimiento de la Policía Nacional, Fiscalía General de la Nación, Ministerio de Comercio, Industria y Turismo (MinCIT) o la Superintendencia de Industria y Comercio (SIC) cualquier conducta presuntamente delictiva, suministrando los registros de auditoría y trazabilidad requeridos por orden legal.
+
+### D. Aceptación Expresa de Términos al Registrarse
+El registro y uso de la plataforma exige la verificación juramentada y firma digital tácita (`acceptedTermsAt`) donde el operador declara haber leído, comprendido y aceptado en su totalidad este deslinde de responsabilidad y las facultades de veto y denuncia de la plataforma.
