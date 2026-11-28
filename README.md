@@ -6,7 +6,10 @@
 
 ---
 
-//Este es un comentario de prueba
+//Este es un comentario de prueba (si quiero puedo modificar esto)
+
+
+//Este es un comentario de prueba, pero hecho por Andrés (andrezitofer)
 
 ## 📌 1. Visión y Propósito del Producto
 
