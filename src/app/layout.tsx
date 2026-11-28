@@ -24,15 +24,18 @@ export default function DashboardLayout({
           <nav className="space-y-1 text-sm font-medium">
             <Link
               href="/proveedores"
+              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60"
+            >
+              <Users className="w-4 h-4 text-emerald-400" />
+              Directorio de Aliados (Paso 1)
+            </Link>
+            <Link
+              href="/tours"
               className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
             >
-              <Users className="w-4 h-4" />
-              Directorio de Aliados
-            </Link>
-            <span className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 cursor-not-allowed">
               <MapPin className="w-4 h-4" />
               Diseñador de Tours (Paso 2)
-            </span>
+            </Link>
             <span className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 cursor-not-allowed">
               <Calculator className="w-4 h-4" />
               Motor Financiero (Paso 3)
