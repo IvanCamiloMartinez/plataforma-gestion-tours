@@ -78,15 +78,18 @@ async function ToursContent() {
               </div>
 
               <div className="mt-5 pt-3 border-t border-slate-800 flex items-center justify-between">
-                <span className="text-xs px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-mono">
-                  {tour.status}
-                </span>
+                <Link
+                  href={`/ficha/${tour.id}`}
+                  className="inline-flex items-center gap-1.5 text-xs text-emerald-400 hover:text-emerald-300 font-semibold"
+                >
+                  Ver Ficha Comercial (PDF)
+                </Link>
 
                 <Link
-                  href={`/tours/nuevo?id=${tour.id}`}
+                  href={`/finanzas/${tour.id}`}
                   className="inline-flex items-center gap-1 text-xs text-slate-300 hover:text-white hover:underline"
                 >
-                  Editar Itinerario
+                  Costear
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
