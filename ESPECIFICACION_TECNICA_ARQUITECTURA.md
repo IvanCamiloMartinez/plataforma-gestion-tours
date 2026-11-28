@@ -1,9 +1,9 @@
 # Especificación Técnica de Arquitectura e Implementación
 ## Guía de Ingeniería para Desarrollo (DEV Spec)
-> **Versión del Documento:** `v1.0`  
-> **Última Actualización:** 27 de Noviembre de 2026  
-> **Estado:** Borrador Técnico Oficial para Revisión de Arquitectura (`[DEV] Andrés`)  
-> **Fuente Canónica de Negocio:** [`DOCUMENTO_DISENO_PLATAFORMA_GESTION_TURISTICA.md`](file:///c:/Users/ivanc/OneDrive/Desktop/Programación/IA/Proyecto%20Gestor%20de%20Tours%20-%20Antigravity/DOCUMENTO_DISENO_PLATAFORMA_GESTION_TURISTICA.md) (`v1.5`)
+> **Versión del Documento:** `v2.0` (Core Loop Implementado en Next.js 15)  
+> **Última Actualización:** 28 de Noviembre de 2026  
+> **Estado:** MVP 100% Funcional en Desarrollo Local (`[DEV] Andrés`)  
+> **Fuente Canónica de Negocio:** [`DOCUMENTO_DISENO_PLATAFORMA_GESTION_TURISTICA.md`](file:///c:/Users/ivanc/OneDrive/Desktop/Programación/IA/Proyecto%20Gestor%20de%20Tours%20-%20Antigravity/DOCUMENTO_DISENO_PLATAFORMA_GESTION_TURISTICA.md) (`v2.0`)
 
 ---
 

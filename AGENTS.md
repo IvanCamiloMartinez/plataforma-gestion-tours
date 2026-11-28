@@ -1,5 +1,5 @@
 # Reglas de Proyecto: Plataforma de Gestión y Desarrollo Turístico (SaaS B2B)
-> **Versión de Reglas:** `v1.5` | **Última Actualización:** 26 de Noviembre de 2026
+> **Versión de Reglas:** `v2.0` | **Última Actualización:** 28 de Noviembre de 2026
 
 Este archivo define las **reglas de comportamiento, invariantes de negocio y restricciones técnicas obligatorias** para cualquier agente o desarrollador que trabaje en este repositorio. Su fuente canónica de verdad es [`DOCUMENTO_DISENO_PLATAFORMA_GESTION_TURISTICA.md`](file:///c:/Users/ivanc/OneDrive/Desktop/Programación/IA/Proyecto%20Gestor%20de%20Tours%20-%20Antigravity/DOCUMENTO_DISENO_PLATAFORMA_GESTION_TURISTICA.md).
 
