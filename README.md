@@ -1,6 +1,6 @@
 # Plataforma de Gestión y Desarrollo Turístico (SaaS B2B)
 
-> **Versión:** `v1.0` | **Última Actualización:** 28 de Noviembre de 2026  
+> **Versión:** `v2.0` (Core Loop de 5 Pasos Construido y Operativo) | **Última Actualización:** 28 de Noviembre de 2026  
 > **Lanzamiento Comercial Oficial:** Vitrina Turística ANATO (Febrero 2027)  
 > **Licencia:** Privada / Propietaria
 

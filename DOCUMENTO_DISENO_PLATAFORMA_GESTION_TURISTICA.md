@@ -1,9 +1,9 @@
 # Plataforma de Gestión y Desarrollo Turístico (SaaS B2B)
 ## Documento Maestro de Diseño, Arquitectura y Estado del MVP
-> **Versión del Documento:** `v1.5` (MVP Canónico Validado)  
-> **Última Actualización:** 26 de Noviembre de 2026  
+> **Versión del Documento:** `v2.0` (MVP Canónico Implementado y Funcional)  
+> **Última Actualización:** 28 de Noviembre de 2026  
 > **Hito de Lanzamiento Público:** Feria ANATO (Febrero 2027)  
-> **Estado:** Aprobado y Sincronizado en GitHub (`main`)
+> **Estado:** Core Loop de 5 Pasos Construido en Next.js 15 y Sincronizado en GitHub (`main`)
 
 ---
 
