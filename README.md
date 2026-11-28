@@ -6,6 +6,8 @@
 
 ---
 
+//Este es un comentario de prueba
+
 ## 📌 1. Visión y Propósito del Producto
 
 Plataforma SaaS B2B orientada a la **productividad, diseño de experiencias, optimización financiera y control operativo** para **guías de turismo independientes con tarjeta profesional** y **agencias boutique receptivas (1 a 4 personas)** en Colombia y Latinoamérica.
@@ -41,18 +43,6 @@ Plataforma SaaS B2B orientada a la **productividad, diseño de experiencias, opt
 
 ---
 
-## 🚀 4. Guía de Instalación y Configuración del Entorno Local
-
-Sigue estos pasos para clonar el repositorio y levantar un entorno de desarrollo idéntico:
-
-### Prerrequisitos
-Asegúrate de tener instalado en tu máquina:
-- **Node.js:** Versión `20.x` LTS o superior.
-- **Gestor de Paquetes:** `npm`, `pnpm` o `yarn`.
-- **Git:** Instalado y configurado con tus credenciales de GitHub.
-- **Base de Datos PostgreSQL:** Instancia local (PostgreSQL / Docker) o base de datos en la nube (Supabase / Neon).
-
----
 
 ### Paso a Paso para Desarrolladores
 
