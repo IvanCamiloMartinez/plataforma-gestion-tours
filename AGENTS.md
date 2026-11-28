@@ -155,6 +155,17 @@ Cuando se presente un escenario no cubierto explícitamente en [`DOCUMENTO_DISEN
   3. El estado del hito (ej. *MVP Canónico Validado*).
 - **Prohibido omitir:** Queda terminantemente prohibido publicar o actualizar un documento sin su correspondiente etiqueta de versión y fecha.
 
+---
+
+## 12. Estándar de Gestión de Bugs y Aseguramiento de Calidad (QA)
+
+- Todo error o comportamiento anómalo detectado debe ser documentado bajo el estándar de la skill [`.agents/skills/bug-reporter-qa`](.agents/skills/bug-reporter-qa/SKILL.md).
+- **Nomenclatura Obligatoria:**
+  - Identificador: `BUG-XXX` (ej. `BUG-001`, `BUG-002`).
+  - Rama Git: `bug/BUG-XXX-slug-descriptivo`. Prohibido usar ramas de funcionalidades (`F01-...`) para registrar o corregir fallas.
+  - Reporte QA: `docs/qa/BUG-XXX_slug_descriptivo.md` bajo formato IEEE 829 / Jira con evidencia visual obligatoria en `docs/assets/`.
+  - Análisis de Causa Raíz (RCA) obligatorio antes de implementar la solución técnica.
+
 <!-- BEGIN:nextjs-agent-rules -->
 
 ## This is NOT the Next.js you know
