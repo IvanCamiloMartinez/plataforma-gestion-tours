@@ -70,23 +70,24 @@ Please make sure your database server is running at `localhost:5432`.
 
 ---
 
-## 8. Soluciones Recomendadas (Workaround & Fix)
+## 8. Solución Técnica Oficial Adoptada (`[CEO]` e Ingeniería)
 
-### Solución A (Recomendada): Aprovisionamiento de DBaaS en la Nube
-1. Crear una base de datos PostgreSQL en **Supabase** o **Neon**.
-2. Actualizar el archivo `.env` local con la cadena de conexión remota con SSL:
+### Decisión de Infraestructura: Neon Serverless Postgres (`neon.tech`)
+Tras evaluar las alternativas disponibles (Supabase, Docker local y PostgreSQL de escritorio), se ha determinado por decisión de producto y arquitectura que **Neon Serverless Postgres es la mejor solución técnica para el proyecto** debido a:
+1. **Despertar Automático Transparente (*Zero Auto-Pause Friction*):** A diferencia del límite de inactividad de 7 días de Supabase que suspende proyectos gratuitos, Neon entra en reposo y se reactiva automáticamente en milisegundos (< 300ms) ante la primera petición de Next.js, eliminando falsos positivos de indisponibilidad.
+2. **Colaboración Centralizada en Nube:** Permite que Iván (`[CEO]`) y Andrés (`[DEV]`) compartan el mismo estado de datos transaccionales en tiempo real sin requerir servicios locales pesados instalados en Windows.
+3. **Cero Dependencia de Tarjeta de Crédito:** Plan permanente *Always-Free* (0.5 GB de almacenamiento, suficiente para miles de tours y manifiestos).
+
+### Procedimiento de Aprovisionamiento e Implementación:
+1. Registrarse o autenticarse en [neon.tech](https://neon.tech) mediante la cuenta de GitHub del proyecto.
+2. Crear un nuevo proyecto denominado `plataforma-gestion-tours` (Región recomendada: `US East - N. Virginia`).
+3. Copiar la cadena de conexión generada (*Pooled connection string* con SSL):
    ```env
-   DATABASE_URL="postgresql://postgres.[PROJECT-REF]:[PASSWORD]@aws-0-us-east-1.pooler.supabase.com:6543/postgres?sslmode=require"
+   DATABASE_URL="postgresql://[USER]:[PASSWORD]@[ENDPOINT].neon.tech/plataforma_tours?sslmode=require"
    ```
-3. Ejecutar `npx prisma db push` para aplicar las tablas canónicas.
-
-### Solución B: Resiliencia en Código (*Error Handling*)
-Modificar `src/actions/providers.ts` para capturar la desconexión:
-```typescript
-try {
-  return await prisma.organization.findUnique({ where: { id: DEFAULT_ORG_ID } });
-} catch (err) {
-  console.warn("Fallo de conexión a BD. Retornando estado degradado.");
-  return null;
-}
-```
+4. Actualizar la variable `DATABASE_URL` en el archivo `.env` local.
+5. Sincronizar el esquema relacional de 12 modelos en Neon:
+   ```bash
+   npx prisma db push
+   ```
+6. **Cierre del Defecto:** Verificar que `/proveedores` cargue en verde y permita el guardado del primer aliado sin excepciones en runtime.

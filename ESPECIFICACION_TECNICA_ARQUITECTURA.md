@@ -131,12 +131,15 @@ flowchart LR
 
 ---
 
-## 6. Decisiones Pendientes de Arquitectura para Revisión (`[DEV] Andrés`)
+## 6. Decisiones Canónicas de Arquitectura e Infraestructura
 
-1. **Alojamiento de Base de Datos PostgreSQL:**
-   - **Propuesta Recomendada:** Supabase o Neon (PostgreSQL administrado en la nube con SSL nativo).
-   - *Alternativa:* Contenedor Docker local con compose file.
+1. **Alojamiento Oficial de Base de Datos PostgreSQL: Neon Serverless Postgres (`neon.tech`) `[CONFIRMADO]`:**
+   - **Elección Oficial:** Neon Serverless PostgreSQL sobre AWS (Región `us-east-1` o `us-east-2`).
+   - **Justificación Técnica:**
+     - Arquitectura desacoplada cómputo/almacenamiento con *auto-wakeup* transparente en milisegundos (< 300ms) sin bloqueos por inactividad.
+     - Cero costos fijos en fase de desarrollo y validación MVP (plan *Always-Free*).
+     - Conexión cifrada obligatoria vía SSL (`sslmode=require`) con pooler de conexiones integrado para Serverless / Server Actions de Next.js.
 2. **Estrategia de Autenticación:**
-   - **Propuesta:** NextAuth.js (Auth.js v5) con Credentials Provider / Magic Links y sesión persistida en JWT o base de datos.
+   - NextAuth.js (Auth.js v5) con Credentials Provider / Magic Links y sesión persistida en JWT o base de datos.
 3. **Manejo de Precisión Decimal en TypeScript:**
    - Uso de la librería `decimal.js` en el backend para cálculos antes de persistir en `Decimal(12,2)`.
