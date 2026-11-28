@@ -38,15 +38,18 @@ export default function DashboardLayout({
             </Link>
             <Link
               href="/finanzas"
-              className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
+              className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60"
             >
-              <Calculator className="w-4 h-4" />
+              <Calculator className="w-4 h-4 text-emerald-400" />
               Motor Financiero (Paso 3)
             </Link>
-            <span className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 cursor-not-allowed">
+            <Link
+              href="/salidas"
+              className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
+            >
               <Calendar className="w-4 h-4" />
               Agenda y Salidas (Paso 5)
-            </span>
+            </Link>
             <span className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-500 cursor-not-allowed">
               <Calendar className="w-4 h-4" />
               Agenda y Salidas (Paso 5)
