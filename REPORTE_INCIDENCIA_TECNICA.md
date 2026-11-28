@@ -12,6 +12,8 @@
 
 Al interactuar con el entorno de desarrollo local en `http://localhost:3000/proveedores`, el navegador renderiza una pantalla roja de error de Next.js (*Server Error Overlay*):
 
+![Captura de Pantalla del Error Prisma](docs/assets/error_prisma_connection.jpg)
+
 ```text
 Runtime PrismaClientInitializationError: Invalid `prisma.organization.findUnique()` invocation in
 C:\Users\ivanc\...\src\actions\providers.ts:10:15
