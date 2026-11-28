@@ -112,31 +112,38 @@ Abre tu navegador en [http://localhost:3000](http://localhost:3000) para ver la 
 ```text
 ├── prisma/
 │   └── schema.prisma           # 12 modelos canónicos (PostgreSQL + Multi-Tenant)
+├── docs/                   # Documentación organizada del proyecto
+│   ├── architecture/       # Especificación técnica, contratos y patrones DEV
+│   ├── assets/             # Capturas de pantalla, evidencias y diagramas
+│   ├── business/           # Documento de diseño canónico, modelo B2B y versiones Word
+│   ├── learning/           # Guías de formación en IA y Antigravity
+│   └── qa/                 # Reportes formales de incidencias técnicas (IEEE 829 / Jira)
+├── prisma/                 # Esquema relacional PostgreSQL (12 modelos canónicos)
+├── public/                 # Recursos estáticos servidos por Next.js
 ├── src/
-│   ├── actions/                # Server Actions seguras (CRUD con validación Zod)
-│   ├── app/                    # Next.js App Router (Páginas, layouts y rutas API)
-│   │   ├── (auth)/             # Login, registro y verificación RNT
-│   │   ├── (dashboard)/        # Panel administrativo multi-tenant
-│   │   │   ├── proveedores/    # MÓDULO 1: Directorio base
-│   │   │   ├── tours/          # MÓDULO 2: Diseñador 3 Capas
-│   │   │   ├── finanzas/       # MÓDULO 3: Simulador financiero
-│   │   │   └── salidas/        # MÓDULO 5: Salidas y Manifiesto
-│   │   └── api/                # Endpoints auxiliares y webhooks
-│   ├── components/             # Componentes UI (shadcn/ui + componentes de dominio)
-│   └── lib/                    # Utilidades transversales, Prisma client y fórmulas
-├── AGENTS.md                   # Reglas de comportamiento e invariantes técnicas obligatorias
-├── DOCUMENTO_DISENO_PLATAFORMA_GESTION_TURISTICA.md  # Fuente canónica de negocio y diseño (v1.5)
-└── ESPECIFICACION_TECNICA_ARQUITECTURA.md            # Especificación técnica detallada para DEV (v1.0)
+│   ├── actions/            # Server Actions seguras (CRUD con validación Zod)
+│   ├── app/                # Next.js App Router (Páginas, layouts y rutas API)
+│   │   ├── (auth)/         # Login, registro y verificación RNT
+│   │   ├── (dashboard)/    # Panel administrativo multi-tenant
+│   │   │   ├── proveedores/# MÓDULO 1: Directorio base
+│   │   │   ├── tours/      # MÓDULO 2: Diseñador 3 Capas
+│   │   │   ├── finanzas/   # MÓDULO 3: Simulador financiero
+│   │   │   └── salidas/    # MÓDULO 5: Salidas y Manifiesto
+│   │   └── api/            # Endpoints auxiliares y webhooks
+│   ├── components/         # Componentes UI (shadcn/ui + componentes de dominio)
+│   └── lib/                # Utilidades transversales, Prisma client y fórmulas
+├── AGENTS.md               # Reglas de comportamiento e invariantes técnicas obligatorias
 ```
 
 ---
 
 ## 📖 6. Documentación Canónica de Referencia
 
-Para comprender todas las reglas de negocio, decisiones y arquitectura, consulta los documentos oficiales en la raíz del repositorio:
-- [**DOCUMENTO_DISENO_PLATAFORMA_GESTION_TURISTICA.md**](DOCUMENTO_DISENO_PLATAFORMA_GESTION_TURISTICA.md): Visión integral de negocio, pricing Freemium 3x, marco normativo colombiano (RNT Ley 2068, Habeas Data Ley 1581, Tarjeta Profesional Ley 1558, Prevención ESCNNA Ley 679) y términos legales con deslinde de responsabilidad.
-- [**ESPECIFICACION_TECNICA_ARQUITECTURA.md**](ESPECIFICACION_TECNICA_ARQUITECTURA.md): Especificación técnica para el equipo de desarrollo con contratos de datos, patrones de software e invariantes de base de datos.
-- [**AGENTS.md**](AGENTS.md): Reglas de gobernanza estricta, protocolo anti-alucinaciones y directrices de ingeniería.
+Para comprender todas las reglas de negocio, decisiones y arquitectura, consulta los documentos oficiales organizados en [`docs/`](docs/):
+- [**DOCUMENTO_DISENO_PLATAFORMA_GESTION_TURISTICA.md**](docs/business/DOCUMENTO_DISENO_PLATAFORMA_GESTION_TURISTICA.md) (`v2.0`): Visión integral de negocio, pricing Freemium 3x, marco normativo colombiano (RNT Ley 2068, Habeas Data Ley 1581, Tarjeta Profesional Ley 1558, Prevención ESCNNA Ley 679) y términos legales con deslinde de responsabilidad.
+- [**ESPECIFICACION_TECNICA_ARQUITECTURA.md**](docs/architecture/ESPECIFICACION_TECNICA_ARQUITECTURA.md) (`v2.0`): Especificación técnica para el equipo de desarrollo con contratos de datos, patrones de software e invariantes de base de datos.
+- [**REPORTE_INCIDENCIA_TECNICA.md**](docs/qa/REPORTE_INCIDENCIA_TECNICA.md) (`BUG-001`): Reporte formal de aseguramiento de calidad (QA) sobre el error de inicialización de Prisma y la solución de DBaaS en Neon Serverless Postgres.
+- [**AGENTS.md**](AGENTS.md) (`v2.0`): Reglas de gobernanza estricta, protocolo anti-alucinaciones y directrices de ingeniería.
 
 ---
 

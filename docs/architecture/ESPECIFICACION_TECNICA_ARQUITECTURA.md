@@ -3,7 +3,7 @@
 > **Versión del Documento:** `v2.0` (Core Loop Implementado en Next.js 15)  
 > **Última Actualización:** 28 de Noviembre de 2026  
 > **Estado:** MVP 100% Funcional en Desarrollo Local (`[DEV] Andrés`)  
-> **Fuente Canónica de Negocio:** [`DOCUMENTO_DISENO_PLATAFORMA_GESTION_TURISTICA.md`](file:///c:/Users/ivanc/OneDrive/Desktop/Programación/IA/Proyecto%20Gestor%20de%20Tours%20-%20Antigravity/DOCUMENTO_DISENO_PLATAFORMA_GESTION_TURISTICA.md) (`v2.0`)
+> **Fuente Canónica de Negocio:** [`DOCUMENTO_DISENO_PLATAFORMA_GESTION_TURISTICA.md`](../business/DOCUMENTO_DISENO_PLATAFORMA_GESTION_TURISTICA.md) (`v2.0`)
 
 ---
 

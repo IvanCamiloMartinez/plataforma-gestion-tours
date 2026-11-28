@@ -1,7 +1,7 @@
 # Reglas de Proyecto: Plataforma de Gestión y Desarrollo Turístico (SaaS B2B)
 > **Versión de Reglas:** `v2.0` | **Última Actualización:** 28 de Noviembre de 2026
 
-Este archivo define las **reglas de comportamiento, invariantes de negocio y restricciones técnicas obligatorias** para cualquier agente o desarrollador que trabaje en este repositorio. Su fuente canónica de verdad es [`DOCUMENTO_DISENO_PLATAFORMA_GESTION_TURISTICA.md`](file:///c:/Users/ivanc/OneDrive/Desktop/Programación/IA/Proyecto%20Gestor%20de%20Tours%20-%20Antigravity/DOCUMENTO_DISENO_PLATAFORMA_GESTION_TURISTICA.md).
+Este archivo define las **reglas de comportamiento, invariantes de negocio y restricciones técnicas obligatorias** para cualquier agente o desarrollador que trabaje en este repositorio. Su fuente canónica de verdad es [`DOCUMENTO_DISENO_PLATAFORMA_GESTION_TURISTICA.md`](docs/business/DOCUMENTO_DISENO_PLATAFORMA_GESTION_TURISTICA.md).
 
 ---
 
@@ -139,7 +139,7 @@ Para garantizar el lanzamiento puntual en ANATO 2027, aplican las siguientes res
 
 ## 10. Protocolo de Consulta ante Ambigüedad o Falta de Certeza
 
-Cuando se presente un escenario no cubierto explícitamente en [`DOCUMENTO_DISENO_PLATAFORMA_GESTION_TURISTICA.md`](file:///c:/Users/ivanc/OneDrive/Desktop/Programación/IA/Proyecto%20Gestor%20de%20Tours%20-%20Antigravity/DOCUMENTO_DISENO_PLATAFORMA_GESTION_TURISTICA.md) o clasificado como `[HIPÓTESIS]`:
+Cuando se presente un escenario no cubierto explícitamente en [`DOCUMENTO_DISENO_PLATAFORMA_GESTION_TURISTICA.md`](docs/business/DOCUMENTO_DISENO_PLATAFORMA_GESTION_TURISTICA.md) o clasificado como `[HIPÓTESIS]`:
 1. **Detenerse de inmediato:** No escribir código preliminar ni asumir valores por defecto arbitrarios.
 2. **Identificar la disyuntiva:** Describir con precisión qué dato, regla de negocio o decisión técnica falta.
 3. **Ofrecer alternativas fundadas:** Presentar 2 o 3 opciones alineadas con los principios del proyecto (simplicidad MVP, Ley de Tesler, legislación colombiana).

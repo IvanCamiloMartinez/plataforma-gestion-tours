@@ -58,12 +58,12 @@ Please make sure your database server is running at `localhost:5432`.
 ---
 
 ## 6. Evidencia Visual (Screenshot)
-![Captura de Pantalla del Error Prisma](docs/assets/error_prisma_connection.jpg)
+![Captura de Pantalla del Error Prisma](../assets/error_prisma_connection.jpg)
 
 ---
 
 ## 7. Análisis de Causa Raíz (Root Cause Analysis - RCA)
-- La función de inicialización `ensureDefaultOrganization()` en [`src/actions/providers.ts`](src/actions/providers.ts#L8-L15) ejecuta una consulta directa `prisma.organization.findUnique()` al inicio de cada ciclo de carga o guardado.
+- La función de inicialización `ensureDefaultOrganization()` en [`src/actions/providers.ts`](../../src/actions/providers.ts#L8-L15) ejecuta una consulta directa `prisma.organization.findUnique()` al inicio de cada ciclo de carga o guardado.
 - La variable de entorno `DATABASE_URL` apunta a un socket de red local (`localhost:5432`) donde no existe ningún demonio de base de datos escuchando peticiones TCP.
 - Falta aprovisionamiento de una instancia gestionada de PostgreSQL (DBaaS en Supabase/Neon) o un archivo `docker-compose.yml` para levantar PostgreSQL en local.
 - Carencia de envoltorio de seguridad (*ErrorBoundary* / `try...catch`) en la Server Action que capture el error antes de romper el renderizado del cliente.

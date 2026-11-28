@@ -10,7 +10,7 @@ description: >-
 
 Esta skill define el procedimiento técnico y operativo paso a paso para desarrollar, probar y mantener los 5 módulos del **Core Loop** de la plataforma, garantizando el cumplimiento de las invariantes de negocio, la Ley de Tesler y la legislación colombiana.
 
-Su fuente de verdad y diseño detallado es [`DOCUMENTO_DISENO_PLATAFORMA_GESTION_TURISTICA.md`](../../DOCUMENTO_DISENO_PLATAFORMA_GESTION_TURISTICA.md) y sus reglas están gobernadas por [`AGENTS.md`](../../AGENTS.md).
+Su fuente de verdad y diseño detallado es [`DOCUMENTO_DISENO_PLATAFORMA_GESTION_TURISTICA.md`](../../docs/business/DOCUMENTO_DISENO_PLATAFORMA_GESTION_TURISTICA.md) y sus reglas están gobernadas por [`AGENTS.md`](../../AGENTS.md).
 
 ---
 
